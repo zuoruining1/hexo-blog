@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="">
+    <meta name="theme-color" content="">
+    
+    <title>Markdown语法 - 左瑞宁的个人网站| Ruining.z Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2017/08/23/Markdown/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Ruining.z Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-build-a-blog.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-build-a-blog.jpg')
+    }
+
+    
+    header.intro-header .header-mask{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: rgba(0,0,0, 0.3);
+    }
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Markdown" title="Markdown">Markdown</a>
+                        
+                    </div>
+                    <h1>Markdown语法</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by Ruining.z on August 23, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>这篇文章转自——<a href="https://segmentfault.com/markdown">segmentfault</a></p>
+</blockquote>
+
+<h1 id="基础语法">基础语法</h1>
+<h2 id="标题">标题</h2>
+
+<p>文章内容较多时，可以用标题分段：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>标题1
+======
+
+标题2
+-----
+
+## 大标题 ##
+### 小标题 ### ## 粗斜体
+
+*斜体文本*    _斜体文本_
+**粗体文本**    __粗体文本__
+***粗斜体文本***    ___粗斜体文本___ ## 链接
+</code></pre>
+</div>
+
+<h4 id="常用链接方法">常用链接方法</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>文字链接 [链接名称](http://链接网址)
+网址链接 &lt;http://链接网址&gt; 高级链接技巧
+
+这个链接用 1 作为网址变量 [Google][1].
+这个链接用 yahoo 作为网址变量 [Yahoo!][yahoo].
+然后在文档的结尾为变量赋值（网址）
+</code></pre>
+</div>
+
+<h2 id="列表">列表</h2>
+
+<h4 id="普通无序列表">普通无序列表</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>- 列表文本前使用 [减号+空格]
++ 列表文本前使用 [加号+空格]
+* 列表文本前使用 [星号+空格] #### 普通有序列表
+
+1. 列表前使用 [数字+空格]
+2. 我们会自动帮你添加数字
+7. 不用担心数字不对，显示的时候我们会自动把这行的 7 纠正为 3 #### 列表嵌套
+
+1. 列出所有元素：
+   - 无序列表元素 A
+    1. 元素 A 的有序子列表
+   - 前面加四个空格
+2. 列表里的多段换行：
+    前面必须加四个空格，
+ 这样换行，整体的格式不会乱
+3. 列表里引用：
+
+    &gt; 前面空一行
+    &gt; 仍然需要在 &gt;  前面加四个空格
+
+4. 列表里代码段：
+
+```
+前面四个空格，之后按代码语法 ``` 书写
+```
+
+    或者直接空八个，引入代码块 ## 引用
+</code></pre>
+</div>
+
+<h4 id="普通引用">普通引用</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&gt; 引用文本前使用 [大于号+空格]
+&gt; 折行可以不加，新起一行都要加上哦 #### 引用里嵌套引用
+
+&gt; 最外层引用
+&gt; &gt; 多一个 &gt; 嵌套一层引用
+&gt; &gt; &gt; 可以嵌套很多层 #### 引用里嵌套列表
+
+&gt; - 这是引用里嵌套的一个列表
+&gt; - 还可以有子列表
+&gt;     * 子列表需要从 - 之后延后四个空格开始 #### 引用里嵌套代码块
+
+&gt;     同样的，在前面加四个空格形成代码块
+&gt;  
+&gt; ```
+&gt; 或者使用 ``` 形成代码块
+&gt; ``` ## 图片
+</code></pre>
+</div>
+
+<p>跟链接的方法区别在于前面加了个感叹号 !，这样是不是觉得好记多了呢？</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>![图片名称](http://图片网址) 当然，你也可以像网址那样对图片网址使用变量
+</code></pre>
+</div>
+
+<p>这个链接用 1 作为网址变量 <a href="http://www.google.com/">Google</a>.
+然后在文档的结尾位变量赋值（网址）</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> [1]: http://www.google.com/logo.png 也可以使用 HTML 的图片语法来自定义图片的宽高大小
+
+&lt;img src="htt://example.com/sample.png" width="400" height="100"&gt; ## 换行
+</code></pre>
+</div>
+
+<p>如果另起一行，只需在当前行结尾加 2 个空格</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>在当前行的结尾加 2 个空格  
+这行就会新起一行 如果是要起一个新段落，只需要空出一行即可。
+</code></pre>
+</div>
+
+<h2 id="分隔符">分隔符</h2>
+
+<p>如果你有写分割线的习惯，可以新起一行输入三个减号-。当前后都有段落时，请空出一行：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>前面的段落
+
+---
+
+后面的段落
+</code></pre>
+</div>
+
+<h1 id="高级技巧">高级技巧</h1>
+<h2 id="行内-html-元素">行内 HTML 元素</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>目前只支持部分段内 HTML 元素效果，包括 &lt;kdb&gt; &lt;b&gt; &lt;i&gt; &lt;em&gt; &lt;sup&gt; &lt;sub&gt; &lt;br&gt; ，如
+</code></pre>
+</div>
+
+<h4 id="键位显示">键位显示</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>使用 &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Del&lt;/kbd&gt; 重启电脑 #### 代码块
+
+使用 &lt;pre&gt;&lt;/pre&gt; 元素同样可以形成代码块 #### 粗斜体
+
+&lt;b&gt; Markdown 在此处同样适用，如 *加粗* &lt;/b&gt; #### 符号转义
+</code></pre>
+</div>
+
+<p>如果你的描述中需要用到 markdown 的符号，比如 _ # * 等，但又不想它被转义，这时候可以在这些符号前加反斜杠，如 _ # * 进行避免。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>\_不想这里的文本变斜体\_
+\*\*不想这里的文本被加粗\*\* #### 扩展
+</code></pre>
+</div>
+
+<p>支持 jsfiddle、gist、runjs、优酷视频，直接填写 url，在其之后会自动添加预览点击会展开相关内容。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://{url_of_the_fiddle}/embedded/[{tabs}/[{style}]]/
+https://gist.github.com/{gist_id}
+http://runjs.cn/detail/{id}
+http://v.youku.com/v_show/id_{video_id}.html #### 公式
+</code></pre>
+</div>
+
+<p>当你需要在编辑器中插入数学公式时，可以使用两个美元符 $$ 包裹 TeX 或 LaTeX 格式的数学公式来实现。提交后，问答和文章页会根据需要加载 Mathjax 对数学公式进行渲染。如：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a}. $$
+
+$$
+x \href{why-equal.html}{=} y^2 + 1
+$ 同时也支持 HTML 属性，如：
+
+$$ (x+1)^2 = \class{hidden}{(x+1)(x+1)} $$
+
+$$
+(x+1)^2 = \cssId{step1}{\style{visibility:hidden}{(x+1) (x+1)}}
+$$
+</code></pre>
+</div>
+
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/08/23/vi-vim/" data-toggle="tooltip" data-placement="top" title="vim／vi编辑器快捷键">
+                        Previous<br>
+                        <span>vim／vi编辑器快捷键</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/08/31/ksyd/" data-toggle="tooltip" data-placement="top" title="快速阅读">
+                        Next<br>
+                        <span>快速阅读</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#linux" title="linux" rel="2">
+                                    linux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#unix" title="unix" rel="2">
+                                    unix
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+        				<!-- 来必力City版安装代码 -->
+        				<p>分享：</P>
+        				<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="#" class="bds_mail" data-cmd="mail" title="分享到邮件分享"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["mshare","weixin","tsina","sqq","qzone","douban","tieba","tqq","renren","evernotecn","youdao","mail"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["mshare","weixin","tsina","sqq","qzone","douban","tieba","tqq","renren","evernotecn","youdao","mail"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+        			<!-- 评论系统代码 -->	
+        			
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMDYxOS83MTc0">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+                	</section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://zuoruoning.github.io">Ruining.z Blog</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoruining/">cnblogs</a></li>
+                    
+                        <li><a href="#"></a></li>
+                    
+                        <li><a href="#"></a></li>
+                    
+                        <li><a href="#">more</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+<!-- LiveRe 评论系统代码 -->
+
+<!-- completed City install code -->
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/2403846162">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/xinaogudu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/zuoruoning">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Ruining.z Blog 2017
+                    <br>
+                    Powered by <a href="http://jekyll.com.cn/">jekyll</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4404257815879f789ef46c96c688cbc3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- Highlight.js -->
+<script>
+    async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+        hljs.initHighlightingOnLoad();
+    })
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+<link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // 
+    var _gaId = 'UA-75516959-1';
+    var _gaDomain = 'playingfingers.com';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by ZRN
+    var _baId = 'd59d067e8500ddc9aafddb11c2cdc1ab';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
